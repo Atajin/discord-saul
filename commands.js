@@ -1,44 +1,28 @@
 import 'dotenv/config';
 import { capitalize, InstallGlobalCommands } from './utils.js';
 
-// Get the game choices from game.js
-function createCommandChoices() {
-  const choices = getRPSChoices();
-  const commandChoices = [];
-
-  for (let choice of choices) {
-    commandChoices.push({
-      name: capitalize(choice),
-      value: choice.toLowerCase(),
-    });
-  }
-
-  return commandChoices;
-}
-
-// Simple test command
-const TEST_COMMAND = {
-  name: 'test',
-  description: 'Basic command',
+const CLEAR_TIMEOUT_COMMAND = {
+  name: 'cleartimeout',
+  description: 'Clears any timeout',
   type: 1,
 };
 
-// Command containing options
-const CHALLENGE_COMMAND = {
-  name: 'challenge',
-  description: 'Challenge to a match of rock paper scissors',
+// Grant coin command
+const GRANT_COIN_COMMAND = {
+  name: 'grantcoin',
+  description: 'Grants a redemption coin to a specified user',
+  type: 1, // Slash command
   options: [
     {
-      type: 3,
-      name: 'object',
-      description: 'Pick your object',
+      type: 6, // USER type
+      name: 'user',
+      description: 'The user to grant a coin to',
       required: true,
-      choices: createCommandChoices(),
     },
   ],
-  type: 1,
 };
 
-const ALL_COMMANDS = [TEST_COMMAND, CHALLENGE_COMMAND];
+
+const ALL_COMMANDS = [CLEAR_TIMEOUT_COMMAND, GRANT_COIN_COMMAND];
 
 InstallGlobalCommands(process.env.APP_ID, ALL_COMMANDS);
